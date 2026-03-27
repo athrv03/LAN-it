@@ -1,4 +1,15 @@
-# LAN-it
+# ⚡ LAN-it: The Local Network Transfer Engine
+
+<p align="center">
+  <img src="https://cdn.simpleicons.org/python/3776AB" height="44"/>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CLI-Tool-000000?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Encryption-Password--Based-555555?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Network-LAN-4CAF50?style=for-the-badge"/>
+</p>
 
 LAN-it is a lightweight, fast, and modular CLI tool for transferring files over a local network without requiring internet access. It is designed to demonstrate how discovery, networking, encryption, and chunked file transfer work together in a real system.
 
@@ -8,7 +19,7 @@ LAN-it is a lightweight, fast, and modular CLI tool for transferring files over 
 
 * Device discovery using UDP broadcast
 * Fast local file transfer over TCP
-* Chunk-based transfer for handling large files efficiently
+* Adaptive chunk-based transfer based on measured throughput
 * Password-based encryption
 * Modular and extensible architecture
 
@@ -23,7 +34,7 @@ Discovery → Connection → Key Derivation → Chunking → Encrypted Transfer 
 1. Devices discover each other via UDP broadcast
 2. The sender connects to the receiver using TCP
 3. Both devices derive the same encryption key from a shared password
-4. The file is split into chunks
+4. The file is split into dynamic chunks (auto-tuned to network speed)
 5. Each chunk is encrypted and transmitted
 6. The receiver decrypts and reconstructs the original file
 
@@ -101,6 +112,9 @@ lanit discover
 lanit send <ip> "<file>" <password>
 ```
 
+Chunk sizing is automatic.  
+Example: on a ~10 MB/s link, a 100MB file is sent in roughly 10 chunks.
+
 ---
 
 ## Project Structure
@@ -145,7 +159,6 @@ Note: This is a basic implementation intended for learning purposes.
 * Progress bar and transfer speed tracking
 * ECDH + AES-GCM encryption
 * mDNS-based discovery
-* Adaptive chunk sizing
 * Graphical user interface
 
 ---
@@ -158,7 +171,7 @@ Contributions are welcome. Feel free to open issues or submit pull requests.
 
 ## License
 
-MIT License
+None
 
 ---
 
