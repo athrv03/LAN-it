@@ -1,68 +1,111 @@
-LAN-it
+# LAN-it
 
-LAN-it is a lightweight, fast, and modular CLI tool for transferring files over a local network without internet. It demonstrates discovery, networking, encryption, and chunked file transfer.
+LAN-it is a lightweight, fast, and modular CLI tool for transferring files over a local network without requiring internet access. It is designed to demonstrate how discovery, networking, encryption, and chunked file transfer work together in a real system.
 
-Features
+---
 
-- Device discovery (UDP broadcast)
-- Fast local transfers over TCP
-- Chunk-based file transfer (handles large files efficiently)
-- Password-based encryption
-- Modular architecture
+## Features
 
-How it works
+* Device discovery using UDP broadcast
+* Fast local file transfer over TCP
+* Chunk-based transfer for handling large files efficiently
+* Password-based encryption
+* Modular and extensible architecture
 
-Discovery → Connection → Key derivation → Chunking → Encrypted transfer → Reassembly
+---
+
+## How It Works
+
+```
+Discovery → Connection → Key Derivation → Chunking → Encrypted Transfer → Reassembly
+```
 
 1. Devices discover each other via UDP broadcast
-2. Sender connects to receiver using TCP
-3. Both derive the same encryption key from a shared password
-4. File is split into chunks
-5. Each chunk is encrypted and sent
-6. Receiver decrypts and reconstructs the file
+2. The sender connects to the receiver using TCP
+3. Both devices derive the same encryption key from a shared password
+4. The file is split into chunks
+5. Each chunk is encrypted and transmitted
+6. The receiver decrypts and reconstructs the original file
 
-Requirements
+---
 
-Python 3.8+
+## Requirements
 
-Dependencies
+### Python
 
+* Python 3.8 or higher
+
+### Dependencies
+
+Install dependencies using:
+
+```
 pip install -r requirements.txt
+```
 
-requirements.txt:
+`requirements.txt`:
+
+```
 cryptography
+```
 
-Network
+---
 
-- Devices must be on the same local network
-- No internet required
+## Network Requirements
 
-Ports used
+* Devices must be connected to the same local network
+* Internet access is not required
 
-- TCP: 5001 (file transfer)
-- UDP: 9999 (discovery)
+---
 
-Make sure your firewall allows these ports.
+## Ports Used
 
-Installation
+* TCP: `5001` (file transfer)
+* UDP: `9999` (device discovery)
 
-1)git clone https://github.com/athrv03/LAN-it
-2)cd LAN-it
-3)pip install -e .
+Ensure that your firewall allows traffic on these ports.
 
-Usage
+---
 
-On receiver device
+## Installation
+
+```
+git clone https://github.com/athrv03/LAN-it
+cd LAN-it
+pip install -e .
+```
+
+---
+
+## Usage
+
+### Start Receiver
+
+```
 lanit receive <password>
+```
 
-Discover devices
+---
+
+### Discover Devices
+
+```
 lanit discover
+```
 
-On sender device
+---
+
+### Send File
+
+```
 lanit send <ip> <file> <password>
+```
 
-Project structure
+---
 
+## Project Structure
+
+```
 lanit/
 ├── cli.py
 ├── main.py
@@ -73,36 +116,52 @@ lanit/
 └── utils/
 
 tests/
+```
 
-Security model
-- Encryption key is derived from a shared password using SHA-256
-- All chunks are encrypted before transmission
-- Decryption happens on receiver side
+---
 
-This is a simple implementation.
+## Security Model
 
-Limitations
+* Encryption keys are derived from a shared password using SHA-256
+* All file chunks are encrypted before transmission
+* Decryption occurs on the receiver side
 
-- Works only on same LAN
-- No authentication (any device can connect if password is known)
-- No resume support
-- Basic key derivation (no salt)
+Note: This is a basic implementation intended for learning purposes.
 
-Development Roadmap
+---
 
-- Resume interrupted transfers
-- Progress bar and speed tracking
-- ECDH + AES-GCM encryption
-- mDNS-based discovery
-- Adaptive chunk sizing
-- GUI version
+## Limitations
 
-Contributing
-Contributions are welcome. Open issues and submit pull requests.
+* Works only within the same local network
+* No authentication mechanism beyond shared password
+* No support for resuming interrupted transfers
+* Basic key derivation without salt
 
-License
+---
 
-MIT
+## Development Roadmap
 
-Why LAN-it?
-LAN-it is designed for learning how file transfer systems work and understanding networking and encryption fundamentals.
+* Resume interrupted transfers
+* Progress bar and transfer speed tracking
+* ECDH + AES-GCM encryption
+* mDNS-based discovery
+* Adaptive chunk sizing
+* Graphical user interface
+
+---
+
+## Contributing
+
+Contributions are welcome. Feel free to open issues or submit pull requests.
+
+---
+
+## License
+
+MIT License
+
+---
+
+## Why LAN-it
+
+LAN-it is designed as a practical learning project to understand how modern file transfer systems work, including networking, encryption, and system design principles.
