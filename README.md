@@ -46,19 +46,19 @@ Make sure your firewall allows these ports.
 
 Installation
 
-git clone https://github.com/athrv03/LAN-it
-cd LAN-it
-pip install -e .
+1)git clone https://github.com/athrv03/LAN-it
+2)cd LAN-it
+3)pip install -e .
 
 Usage
 
-Start receiver
+On receiver device
 lanit receive <password>
 
 Discover devices
 lanit discover
 
-Send file
+On sender device
 lanit send <ip> <file> <password>
 
 Project structure
@@ -75,7 +75,6 @@ lanit/
 tests/
 
 Security model
-
 - Encryption key is derived from a shared password using SHA-256
 - All chunks are encrypted before transmission
 - Decryption happens on receiver side
