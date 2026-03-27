@@ -9,3 +9,6 @@ dependencies = [
 
 [project.scripts]
 lanit = "lanit.main:main"
+
+[tool.setuptools]
+packages = ["lanit"]
