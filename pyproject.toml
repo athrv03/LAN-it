@@ -1,0 +1,11 @@
+[project]
+name = "lan-it"
+version = "0.1.0"
+description = "Fast CLI-based local network file transfer tool"
+authors = [{name = "athrv03"}]
+dependencies = [
+    "cryptography"
+]
+
+[project.scripts]
+lanit = "lanit.main:main"

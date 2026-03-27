@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: lan-it
+Version: 0.1.0
+Summary: Fast CLI-based local network file transfer tool
+Author: athrv03
+Requires-Dist: cryptography
