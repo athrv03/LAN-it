@@ -46,22 +46,19 @@ Make sure your firewall allows these ports.
 
 Installation
 
-git clone https://github.com/your-username/LAN-it.git
+git clone https://github.com/athrv03/LAN-it
 cd LAN-it
 pip install -e .
 
 Usage
 
 Start receiver
-
 lanit receive <password>
 
 Discover devices
-
 lanit discover
 
 Send file
-
 lanit send <ip> <file> <password>
 
 Project structure
@@ -83,7 +80,7 @@ Security model
 - All chunks are encrypted before transmission
 - Decryption happens on receiver side
 
-This is a learning implementation. For production, add salt + PBKDF2, ECDH, and authentication.
+This is a simple implementation.
 
 Limitations
 
@@ -92,11 +89,7 @@ Limitations
 - No resume support
 - Basic key derivation (no salt)
 
-Development
-
-pytest
-
-Roadmap
+Development Roadmap
 
 - Resume interrupted transfers
 - Progress bar and speed tracking
@@ -106,7 +99,6 @@ Roadmap
 - GUI version
 
 Contributing
-
 Contributions are welcome. Open issues and submit pull requests.
 
 License
@@ -114,5 +106,4 @@ License
 MIT
 
 Why LAN-it?
-
 LAN-it is designed for learning how file transfer systems work and understanding networking and encryption fundamentals.
