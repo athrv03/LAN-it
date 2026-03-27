@@ -21,7 +21,7 @@ def run():
 
     elif cmd == "send":
         if len(sys.argv) < 5:
-            print("Usage: lanit send <ip> <file> <password>")
+            print("Usage: lanit send <ip> \"<file>\" <password>")
             return
 
         ip = sys.argv[2]

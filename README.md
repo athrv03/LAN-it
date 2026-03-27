@@ -98,7 +98,7 @@ lanit discover
 ### Send File
 
 ```
-lanit send <ip> <file> <password>
+lanit send <ip> "<file>" <password>
 ```
 
 ---
