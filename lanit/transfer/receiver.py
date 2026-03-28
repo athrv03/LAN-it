@@ -1,5 +1,6 @@
 import os
 from lanit.crypto.encryption import decrypt
+from lanit.transfer.progress import ProgressBar
 
 
 def _recv_exact(sock, size):
@@ -25,6 +26,7 @@ def receive_file(sock):
 
     with open(output, "wb") as f:
         received = 0
+        progress = ProgressBar(filesize, "Receiving")
 
         while received < filesize:
             chunk_size = int.from_bytes(_recv_exact(sock, 4), "big")
@@ -34,6 +36,7 @@ def receive_file(sock):
             f.write(chunk)
             received += len(chunk)
 
-            print(f"{received}/{filesize} bytes", end="\r")
+            progress.update(received)
 
-    print(f"\nSaved as {output}")
+    progress.finish()
+    print(f"Saved as {output}")

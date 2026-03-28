@@ -3,6 +3,7 @@ import time
 
 from lanit.transfer.chunker import MB, next_chunk_size_from_throughput
 from lanit.crypto.encryption import encrypt
+from lanit.transfer.progress import ProgressBar
 
 
 def send_file(sock, path):
@@ -17,7 +18,10 @@ def send_file(sock, path):
     sock.sendall(len(metadata).to_bytes(4, "big"))
     sock.sendall(metadata)
 
+    progress = ProgressBar(file_size, "Sending")
+
     with open(path, "rb") as f:
+        sent = 0
         while True:
             chunk = f.read(chunk_size)
             if not chunk:
@@ -30,6 +34,9 @@ def send_file(sock, path):
             sock.sendall(encrypted)
             elapsed = time.perf_counter() - start
 
+            sent += len(chunk)
+            progress.update(sent)
+
             if elapsed > 0:
                 sample_throughput = len(chunk) / elapsed
                 if throughput_estimate is None:
@@ -39,4 +46,5 @@ def send_file(sock, path):
                     throughput_estimate = (0.7 * throughput_estimate) + (0.3 * sample_throughput)
                 chunk_size = next_chunk_size_from_throughput(throughput_estimate)
 
+    progress.finish()
     print("File sent successfully")
