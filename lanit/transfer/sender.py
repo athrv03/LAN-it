@@ -11,8 +11,11 @@ def send_file(sock, path):
     chunk_size = MB
     throughput_estimate = None
 
-    # send metadata
-    sock.sendall(f"{filename}|{file_size}".encode())
+    # Send metadata as length-prefixed UTF-8 so binary payload bytes
+    # cannot be accidentally parsed as text on the receiver side.
+    metadata = f"{filename}|{file_size}".encode("utf-8")
+    sock.sendall(len(metadata).to_bytes(4, "big"))
+    sock.sendall(metadata)
 
     with open(path, "rb") as f:
         while True:

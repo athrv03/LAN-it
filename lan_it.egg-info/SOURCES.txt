@@ -19,3 +19,4 @@ lanit/transfer/sender.py
 lanit/utils/file.py
 lanit/utils/logger.py
 tests/test_basic.py
+tests/test_chunker.py

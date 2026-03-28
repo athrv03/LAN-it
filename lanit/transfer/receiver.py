@@ -2,8 +2,19 @@ import os
 from lanit.crypto.encryption import decrypt
 
 
+def _recv_exact(sock, size):
+    data = b""
+    while len(data) < size:
+        chunk = sock.recv(size - len(data))
+        if not chunk:
+            raise ConnectionError("Connection closed while receiving data")
+        data += chunk
+    return data
+
+
 def receive_file(sock):
-    metadata = sock.recv(1024).decode()
+    metadata_size = int.from_bytes(_recv_exact(sock, 4), "big")
+    metadata = _recv_exact(sock, metadata_size).decode("utf-8")
     filename, filesize = metadata.split("|")
     filesize = int(filesize)
 
@@ -16,18 +27,8 @@ def receive_file(sock):
         received = 0
 
         while received < filesize:
-            size_data = sock.recv(4)
-            if not size_data:
-                break
-
-            chunk_size = int.from_bytes(size_data, "big")
-
-            data = b""
-            while len(data) < chunk_size:
-                packet = sock.recv(chunk_size - len(data))
-                if not packet:
-                    break
-                data += packet
+            chunk_size = int.from_bytes(_recv_exact(sock, 4), "big")
+            data = _recv_exact(sock, chunk_size)
 
             chunk = decrypt(data)
             f.write(chunk)
